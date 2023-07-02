@@ -16,7 +16,11 @@
   "keywords": [
     "cli",
     "dx",
-    "developer-experience"
+    "developer-experience",
+    "typescript",
+    "project",
+    "organizer",
+    "management"
   ],
   "author": "dx-factory",
   "license": "ISC",
@@ -29,5 +33,8 @@
     "tslint": "^6.1.3",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^5.1.6"
+  },
+  "eslintConfig": {
+    "extends": "standard"
   }
 }
