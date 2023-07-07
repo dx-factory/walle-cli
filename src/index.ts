@@ -6,7 +6,7 @@ function bootstrap() {
   const { command: commandName, args } = ArgsProcessor.getArgs();
 
   try {
-    const command = CommandFactory.sketchCommand;
+    const command = CommandFactory.getCommand(commandName);
     command.execute(args);
   } catch (error) {
     console.error(error);

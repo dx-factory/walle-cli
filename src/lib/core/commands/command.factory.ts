@@ -1,7 +1,7 @@
 import Factory from "../common/factory";
 import Config from "../config/config";
 import { CommandErrorCodes } from "./command.errors";
-import { Commands } from "./command.types";
+import { Commands, ICommand } from "./command.types";
 import SketchCommand from "./sketch/sketch.command";
 import { ISketchCommand } from "./sketch/sketch.types";
 
@@ -13,8 +13,8 @@ import { ISketchCommand } from "./sketch/sketch.types";
 export default class CommandFactory extends Factory {
   private static SketchCommand: ISketchCommand;
 
-  static commandByCommandName(commandName: string) {
-    if (commandName === Commands.SKETCH) return this.SketchCommand;
+  static getCommand(commandName: string): ICommand {
+    if (commandName === Commands.SKETCH) return this.sketchCommand;
     else throw new Error(CommandErrorCodes.COMMAND_NOT_FOUND);
   }
 
