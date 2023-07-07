@@ -1,6 +1,6 @@
 export enum Commands {
   MAKE = "make",
-  DELETE = "delete",
+  SKETCH = "sketch",
 }
 
 export interface ICommand {

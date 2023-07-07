@@ -1,8 +1,9 @@
 import Factory from "../common/factory";
+import Config from "../config/config";
 import { CommandErrorCodes } from "./command.errors";
 import { Commands } from "./command.types";
-import MakeCommand from "./make/make.command";
-import { IMakeCommand } from "./make/make.types";
+import SketchCommand from "./sketch/sketch.command";
+import { ISketchCommand } from "./sketch/sketch.types";
 
 /**
  * CommandFactory
@@ -10,14 +11,14 @@ import { IMakeCommand } from "./make/make.types";
  * - A factory for creating commands
  */
 export default class CommandFactory extends Factory {
-  private static MakeCommand: IMakeCommand;
+  private static SketchCommand: ISketchCommand;
 
   static commandByCommandName(commandName: string) {
-    if (commandName === Commands.MAKE) return this.makeCommand;
+    if (commandName === Commands.SKETCH) return this.SketchCommand;
     else throw new Error(CommandErrorCodes.COMMAND_NOT_FOUND);
   }
 
-  static get makeCommand(): IMakeCommand {
-    return this.resolve(this.MakeCommand, () => new MakeCommand());
+  static get sketchCommand(): ISketchCommand {
+    return this.resolve(this.SketchCommand, () => new SketchCommand(new Config()));
   }
 }

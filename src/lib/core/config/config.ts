@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import { WALLE_CONFIG_FILE_PATH } from "./config.constants";
-import { Part, Prototype } from "./config.types";
+import { Prototype } from "./config.types";
 
 export default class Config {
   get(key: string): any {
@@ -8,13 +8,14 @@ export default class Config {
     return config[key];
   }
 
-  getPart(partName: string): Part | undefined {
-    const parts = this.get("parts") as Part[];
-    return parts.find((part: Part) => part.name === partName);
+  getPrototype(prototypeRef: string): Prototype {
+    const prototypes = this.get("prototypes") as Prototype[];
+    const prototype = prototypes.find((part: Prototype) => part.ref === prototypeRef);
+    if (!prototype) throw new Error("Invalid prototype");
+    return prototype;
   }
 
-  getPrototype(prototypeName: string): Prototype | undefined {
-    const prototypes = this.get("prototypes") as Prototype[];
-    return prototypes.find((part: Prototype) => part.name === prototypeName);
+  getEntryPoint(): string {
+    return this.get("entryPoint");
   }
 }
