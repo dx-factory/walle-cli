@@ -4,13 +4,12 @@ import Config from "../../config/config";
 import { Prototype } from "../../config/config.types";
 import { DepuratedPrototypeSketch, ISketchCommand } from "./sketch.types";
 
-export default class SketchCommand implements ISketchCommand {
+export class SketchCommand implements ISketchCommand {
   constructor(private readonly config: Config) {}
 
   private depurate(args: string[]): DepuratedPrototypeSketch {
     if (args.length < 2) throw new Error("Invalid number of arguments");
     const [prototypeRef, name] = args.slice(-2);
-    console.log(prototypeRef, name);
     const existingPath = args.slice(0, -2).join("/");
     const customEntryPoint = `${this.config.getEntryPoint()}/${existingPath}`;
     if (!checkPathExists(customEntryPoint)) throw new Error(`Invalid path ${existingPath}`);
