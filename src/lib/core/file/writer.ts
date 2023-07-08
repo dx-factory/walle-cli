@@ -15,7 +15,7 @@ export const createDirectory = (path: string, name: string): void => {
   console.log("Directory created successfully.");
 };
 
-export const createFile = (path: string, name: string): void => {
+export const createFile = (path: string, name: string, data = ""): void => {
   const filePath = `${path}/${name}`;
 
   // Check if the file already exists
@@ -25,7 +25,7 @@ export const createFile = (path: string, name: string): void => {
   }
 
   // Create an empty file
-  fs.writeFileSync(filePath, "");
+  fs.writeFileSync(filePath, data);
 
   console.log("File created successfully.");
 };

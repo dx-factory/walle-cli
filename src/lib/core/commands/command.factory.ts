@@ -2,6 +2,7 @@ import Factory from "../common/factory";
 import Config from "../config/config";
 import { CommandErrorCodes } from "./command.errors";
 import { Commands, ICommand } from "./command.types";
+import { InitCommand, IInitCommand } from "./init";
 import { IMakeCommand, MakeCommand } from "./make";
 import { ISketchCommand, SketchCommand } from "./sketch";
 
@@ -13,10 +14,12 @@ import { ISketchCommand, SketchCommand } from "./sketch";
 export default class CommandFactory extends Factory {
   private static SketchCommand: ISketchCommand;
   private static MakeCommand: IMakeCommand;
+  private static InitCommand: IInitCommand;
 
   static getCommand(commandName: string): ICommand {
     if (commandName === Commands.SKETCH) return this.sketchCommand;
     if (commandName === Commands.MAKE) return this.makeCommand;
+    if (commandName === Commands.INIT) return this.initCommand;
     else throw new Error(CommandErrorCodes.COMMAND_NOT_FOUND);
   }
 
@@ -26,5 +29,9 @@ export default class CommandFactory extends Factory {
 
   static get makeCommand(): IMakeCommand {
     return this.resolve(this.MakeCommand, () => new MakeCommand(new Config()));
+  }
+
+  static get initCommand(): IInitCommand {
+    return this.resolve(this.InitCommand, () => new InitCommand());
   }
 }
