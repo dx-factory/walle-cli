@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import { WALLE_CONFIG_FILE_PATH } from "./config.constants";
-import { Prototype } from "./config.types";
+import { Manual, Prototype } from "./config.types";
 
 export default class Config {
   get(key: string): any {
@@ -13,6 +13,13 @@ export default class Config {
     const prototype = prototypes.find((part: Prototype) => part.ref === prototypeRef);
     if (!prototype) throw new Error("Invalid prototype");
     return prototype;
+  }
+
+  getManual(manualRef: string): Manual {
+    const manuals = this.get("manuals") as Manual[];
+    const manual = manuals.find((part: Manual) => part.ref === manualRef);
+    if (!manual) throw new Error("Invalid manual");
+    return manual;
   }
 
   getEntryPoint(): string {
