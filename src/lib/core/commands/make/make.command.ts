@@ -8,11 +8,7 @@ import { IManualService } from "../../services/Manual/manual.types";
 import { PrototypeService } from "../../services/Prototype/prototype.service";
 
 export class MakeCommand implements IMakeCommand {
-  constructor(
-    private readonly manualService: IManualService,
-    private readonly config: Config,
-    private readonly prototypeService: PrototypeService,
-  ) {}
+  constructor(private readonly manualService: IManualService, private readonly prototypeService: PrototypeService) {}
 
   private depurate(argsProp: string[]): DepuratedMake {
     const triggers = ArgsProcessor.getTriggersFromArgs(argsProp);
@@ -20,7 +16,7 @@ export class MakeCommand implements IMakeCommand {
 
     const [prototypeRef, name] = semantic.slice(-2);
     const existingPath = semantic.slice(0, -1).join("/");
-    const customEntryPoint = `${this.config.getEntryPoint()}/${existingPath}`;
+    const customEntryPoint = `${Config.getEntryPoint()}/${existingPath}`;
     if (!checkPathExists(customEntryPoint)) throw new Error(`Invalid path ${existingPath}`);
 
     const prototype = this.prototypeService.getPrototype(prototypeRef);
@@ -29,7 +25,7 @@ export class MakeCommand implements IMakeCommand {
     const validTriggers = this.manualService.containsTriggers(manual, triggers);
     if (!validTriggers) throw new Error(`Invalid triggers for manual ${prototype.manual}`);
 
-    return { name, manual, triggers: triggers, entryPoint: customEntryPoint || this.config.getEntryPoint() };
+    return { name, manual, triggers, entryPoint: customEntryPoint || Config.getEntryPoint() };
   }
 
   makePrototype(name: string, manual: Manual, triggers: string[], path: string): void {

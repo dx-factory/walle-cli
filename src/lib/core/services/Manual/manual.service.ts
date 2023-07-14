@@ -4,17 +4,17 @@ import { createFile } from "../../file/writer";
 import { LoadManualInstructionsOptions } from "./manual.types";
 
 export class ManualService {
-  constructor(private readonly config: Config) {}
+  constructor() {}
 
   public getManual(manualRef: string): Manual {
-    const manual = this.config.getManual(manualRef);
+    const manual = Config.getManual(manualRef);
     if (!manual) throw new Error(`Invalid manual ${manualRef}`);
     return manual;
   }
 
   private getInstructionByTrigger(manual: Manual, trigger: string): Instruction {
     const instructions = manual.instructions as Instruction[];
-    const instruction = instructions.find((instruction) => instruction.trigger === trigger);
+    const instruction = instructions.find(({ trigger: instructionTrigger }) => instructionTrigger === trigger);
     if (!instruction) throw new Error(`Instruction not found for trigger ${trigger}`);
     return instruction;
   }

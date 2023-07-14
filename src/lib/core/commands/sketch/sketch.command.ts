@@ -5,27 +5,27 @@ import { Prototype } from "../../config/config.types";
 import { DepuratedPrototypeSketch, ISketchCommand } from "./sketch.types";
 
 export class SketchCommand implements ISketchCommand {
-  constructor(private readonly config: Config) {}
+  constructor() {}
 
   private depurate(args: string[]): DepuratedPrototypeSketch {
     if (args.length < 2) throw new Error("Invalid number of arguments");
     const [prototypeRef, name] = args.slice(-2);
     const existingPath = args.slice(0, -2).join("/");
-    const customEntryPoint = `${this.config.getEntryPoint()}/${existingPath}`;
+    const customEntryPoint = `${Config.getEntryPoint()}/${existingPath}`;
     if (!checkPathExists(customEntryPoint)) throw new Error(`Invalid path ${existingPath}`);
-    const prototype = this.config.getPrototype(prototypeRef);
+    const prototype = Config.getPrototype(prototypeRef);
     if (!prototype) throw new Error(`Invalid prototype ${prototypeRef}`);
-    return { prototype, name, entryPoint: customEntryPoint || this.config.getEntryPoint() };
+    return { prototype, name, entryPoint: customEntryPoint || Config.getEntryPoint() };
   }
 
-  private sketchPrototype(prototype: Prototype, name: string, currentPath: string, initPath = this.config.getEntryPoint()): void {
+  private sketchPrototype(prototype: Prototype, name: string, currentPath: string, initPath = Config.getEntryPoint()): void {
     const partsPathName = currentPath === initPath ? name : prototype.ref;
     const partsPath = `${currentPath}/${partsPathName}`;
     createDirectory(currentPath, partsPathName);
     if (!prototype?.parts || prototype?.parts?.length === 0) return;
     else {
       prototype.parts.forEach((part: Prototype["ref"]) => {
-        this.sketchPrototype(this.config.getPrototype(part), name, partsPath);
+        this.sketchPrototype(Config.getPrototype(part), name, partsPath);
       });
     }
   }

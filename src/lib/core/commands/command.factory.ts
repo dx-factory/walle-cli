@@ -1,10 +1,12 @@
 import Factory from "../common/factory";
 import Config from "../config/config";
+import { PrototypeService } from "../services/Prototype/prototype.service";
 import { CommandErrorCodes } from "./command.errors";
 import { Commands, ICommand } from "./command.types";
 import { InitCommand, IInitCommand } from "./init";
 import { IMakeCommand, MakeCommand } from "./make";
 import { ISketchCommand, SketchCommand } from "./sketch";
+import { ManualService } from "../services/Manual/manual.service";
 
 /**
  * CommandFactory
@@ -24,11 +26,11 @@ export default class CommandFactory extends Factory {
   }
 
   static get sketchCommand(): ISketchCommand {
-    return this.resolve(this.SketchCommand, () => new SketchCommand(new Config()));
+    return this.resolve(this.SketchCommand, () => new SketchCommand());
   }
 
   static get makeCommand(): IMakeCommand {
-    return this.resolve(this.MakeCommand, () => new MakeCommand(new Config()));
+    return this.resolve(this.MakeCommand, () => new MakeCommand(new ManualService(), new PrototypeService()));
   }
 
   static get initCommand(): IInitCommand {
