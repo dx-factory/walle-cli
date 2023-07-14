@@ -6,6 +6,9 @@ import ArgsProcessor from "../../args/args.processor";
 import { createDirectory } from "../../common/file/writer";
 import { IManualService } from "../../services/Manual/manual.types";
 import { PrototypeService } from "../../services/Prototype/prototype.service";
+import { Spinner } from "../../../ui/components/Spinner/Spinner";
+import { SeverityLevels } from "../../../ui/common/severity";
+import { Logger } from "../../../ui/components/Logger/Logger";
 
 export class MakeCommand implements IMakeCommand {
   constructor(private readonly manualService: IManualService, private readonly prototypeService: PrototypeService) {}
@@ -36,8 +39,12 @@ export class MakeCommand implements IMakeCommand {
     this.manualService.loadManualInstructions(manual, { path: pathToCreate, name, triggers });
   }
 
-  execute(args: string[]): void {
+  async execute(args: string[]): Promise<void> {
     const { name, triggers, manual, entryPoint } = this.depurate(args);
-    this.makePrototype(name, manual, triggers, entryPoint);
+    await Spinner.wait({
+      startMessage: `Making ${manual.ref} ${name}`,
+      stopMessage: `Prototype ${name} created!`,
+      callback: () => this.makePrototype(name, manual, triggers, entryPoint),
+    });
   }
 }

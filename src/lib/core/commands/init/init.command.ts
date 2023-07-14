@@ -16,7 +16,7 @@ export class InitCommand implements IInitCommand {
     return checkPathExists(`${process.cwd()}/${WALLE_CONFIG_FILENAME}`);
   }
 
-  execute(args: string[]): void {
+  async execute(args: string[]): Promise<void> {
     const { entryPoint } = this.depurate(args);
     if (this.configFileExists()) throw new Error("Config file already exists");
     createFile(process.cwd(), WALLE_CONFIG_FILENAME, JSON.stringify({ entryPoint: `./${entryPoint}` }, null, 4));

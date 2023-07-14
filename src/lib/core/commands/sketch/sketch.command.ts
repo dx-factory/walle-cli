@@ -1,3 +1,6 @@
+import { SeverityLevels } from "../../../ui/common/severity";
+import { Logger } from "../../../ui/components/Logger/Logger";
+import { Spinner } from "../../../ui/components/Spinner/Spinner";
 import { checkPathExists } from "../../common/file/reader";
 import { createDirectory } from "../../common/file/writer";
 import Config from "../../config/config";
@@ -30,8 +33,13 @@ export class SketchCommand implements ISketchCommand {
     }
   }
 
-  execute(args: string[]): void {
+  async execute(args: string[]): Promise<void> {
     const { prototype, name, entryPoint } = this.depurate(args);
-    this.sketchPrototype(prototype, name, entryPoint, entryPoint);
+    await Spinner.wait({
+      startMessage: `Sketching ${prototype.ref} ${name}`,
+      stopMessage: `Sketched!`,
+      callback: () => this.sketchPrototype(prototype, name, entryPoint, entryPoint),
+    });
+    Logger.note({ type: SeverityLevels.DEFAULT, title: "Next steps", message: `Find your sketched prototype in ${entryPoint}${name}` });
   }
 }

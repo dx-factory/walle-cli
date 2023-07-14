@@ -3,7 +3,8 @@
     "target": "es5",
     "module": "CommonJS",
     "declaration": true,
-    "outDir": "./build"
+    "outDir": "./build",
+    "esModuleInterop": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "**/__tests__/*"]

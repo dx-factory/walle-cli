@@ -7,5 +7,5 @@ export interface DepuratedPrototypeSketch {
 }
 
 export interface ISketchCommand {
-  execute(args: string[]): void;
+  execute(args: string[]): Promise<void>;
 }

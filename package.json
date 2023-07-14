@@ -45,6 +45,8 @@
     "extends": "standard"
   },
   "dependencies": {
+    "@clack/prompts": "^0.6.3",
+    "chalk": "4.1.2",
     "type-flag": "^3.0.0"
   }
 }

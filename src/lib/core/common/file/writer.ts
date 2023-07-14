@@ -13,7 +13,6 @@ export const createDirectory = (path: string, name: string) => {
 export const createFile = (path: string, name: string): void => {
   const filePath = `${path}/${name}`;
 
-  // Check if the file already exists
   if (fs.existsSync(filePath)) {
     throw new Error("File already exists.");
   }

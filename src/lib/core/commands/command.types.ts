@@ -5,5 +5,5 @@ export enum Commands {
 }
 
 export interface ICommand {
-  execute(args: string[]): void;
+  execute(args: string[]): Promise<void>;
 }
