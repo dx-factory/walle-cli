@@ -9,15 +9,13 @@ interface LoggerOptions {
 
 export class Logger {
   static start({ type, title = "", message = "" }: LoggerOptions): void {
-    const formattedTitle = `${severities[type].bold(title)}`;
+    const formattedTitle = `${severities[type](title)}`;
     intro(formattedTitle);
     message && log.message(severities[type](message));
   }
 
-  static end({ type = SeverityLevels.DEFAULT, title, message = "" }: LoggerOptions): void {
-    const formattedTitle = `${severities[type].bold(title)}`;
-    message && log.message(severities[SeverityLevels.DEFAULT](message));
-    outro(formattedTitle);
+  static end({ title }: LoggerOptions): void {
+    outro(title);
   }
 
   static note({ type, title = "", message = "" }: LoggerOptions): void {

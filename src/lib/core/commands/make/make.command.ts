@@ -7,8 +7,6 @@ import { createDirectory } from "../../common/file/writer";
 import { IManualService } from "../../services/Manual/manual.types";
 import { PrototypeService } from "../../services/Prototype/prototype.service";
 import { Spinner } from "../../../ui/components/Spinner/Spinner";
-import { SeverityLevels } from "../../../ui/common/severity";
-import { Logger } from "../../../ui/components/Logger/Logger";
 
 export class MakeCommand implements IMakeCommand {
   constructor(private readonly manualService: IManualService, private readonly prototypeService: PrototypeService) {}

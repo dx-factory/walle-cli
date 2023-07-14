@@ -16,6 +16,6 @@ export class Spinner {
     customSpinner.start(severities[SeverityLevels.DEFAULT](startMessage));
     callback();
     await setTimeout(delay);
-    customSpinner.stop(stopMessage && severities[SeverityLevels.SUCCESS](`✅ ${stopMessage}`));
+    customSpinner.stop(stopMessage && severities[SeverityLevels.SUCCESS](stopMessage));
   }
 }

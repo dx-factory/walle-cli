@@ -23,13 +23,13 @@ export type SeverityLevelsType = BgSeverityLevel | SeverityLevel;
 export type Severities = Record<SeverityLevelsType, any>;
 
 const defaultLevel = chalk.gray;
-const info = chalk.blue;
+const info = chalk.cyan;
 const warning = chalk.yellow;
 const error = chalk.red;
 const success = chalk.green;
 
 const bgDefaultLevel = chalk.bgGray.white;
-const bgInfo = chalk.bgBlue.white;
+const bgInfo = chalk.bgCyan.white;
 const bgWarning = chalk.bgYellow;
 const bgError = chalk.bgRed.white;
 const bgSuccess = chalk.bgGreen.white;
