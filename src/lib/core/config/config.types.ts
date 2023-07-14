@@ -7,6 +7,7 @@ export interface Instruction {
   trigger?: string;
   preffix?: string;
   name?: string;
+  template?: string;
 }
 
 export interface Manual {

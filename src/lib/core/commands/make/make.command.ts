@@ -1,13 +1,18 @@
 import Config from "../../config/config";
 import { DepuratedMake, IMakeCommand } from "./make.types";
 import { checkPathExists } from "../../common/file/reader";
-import { Instruction, Manual, Prototype } from "../../config/config.types";
-import { createFile } from "../../file/writer";
+import { Manual } from "../../config/config.types";
 import ArgsProcessor from "../../args/args.processor";
 import { createDirectory } from "../../common/file/writer";
+import { IManualService } from "../../services/Manual/manual.types";
+import { PrototypeService } from "../../services/Prototype/prototype.service";
 
 export class MakeCommand implements IMakeCommand {
-  constructor(private readonly config: Config) {}
+  constructor(
+    private readonly manualService: IManualService,
+    private readonly config: Config,
+    private readonly prototypeService: PrototypeService,
+  ) {}
 
   private depurate(argsProp: string[]): DepuratedMake {
     const triggers = ArgsProcessor.getTriggersFromArgs(argsProp);
@@ -18,41 +23,21 @@ export class MakeCommand implements IMakeCommand {
     const customEntryPoint = `${this.config.getEntryPoint()}/${existingPath}`;
     if (!checkPathExists(customEntryPoint)) throw new Error(`Invalid path ${existingPath}`);
 
-    const prototype = this.config.getPrototype(prototypeRef);
-    if (!prototype.manual) throw new Error(`Prototype missing manual`);
+    const prototype = this.prototypeService.getPrototype(prototypeRef);
+    const manual = this.prototypeService.getPrototypeManual(prototypeRef);
 
-    // Verify that triggers are included in manual instructions
-    const manual = this.config.getManual(prototype.manual);
-    if (typeof manual.instructions === "string") throw new Error(`Invalid manual instructions`);
+    const validTriggers = this.manualService.containsTriggers(manual, triggers);
+    if (!validTriggers) throw new Error(`Invalid triggers for manual ${prototype.manual}`);
 
-    const manualTriggers = manual.instructions.map((instruction) => instruction.trigger);
-
-    const missingTriggers = triggers.filter((trigger) => !manualTriggers.includes(trigger));
-    if (missingTriggers.length > 0) throw new Error(`Invalid triggers ${missingTriggers.join(", ")}`);
     return { name, manual, triggers: triggers, entryPoint: customEntryPoint || this.config.getEntryPoint() };
   }
 
   makePrototype(name: string, manual: Manual, triggers: string[], path: string): void {
     const craftFolder: boolean = manual.folder || false;
-
     if (craftFolder) createDirectory(`${path}`, name);
-
     const pathToCreate = craftFolder ? `${path}/${name}` : path;
-    if (typeof manual.instructions === "string") createFile(`${pathToCreate}/${name}.${manual.instructions}`, "");
-    if (manual.instructions instanceof Array) {
-      triggers.forEach((trigger) => {
-        const instructions = manual.instructions as Instruction[];
-        const instruction = instructions.find((instruction) => instruction.trigger === trigger);
-        if (!instruction) throw new Error(`Instruction not found for trigger ${trigger}`);
-        const { extension, preffix: suffix, name: fileName } = instruction;
-        createFile(pathToCreate, `${fileName || name}${suffix ? `.${suffix}` : ""}.${extension}`, "");
-      });
-      manual.instructions.forEach(({ extension, name: fileName, trigger }) => {
-        if (!trigger) {
-          createFile(pathToCreate, `${fileName || name}.${extension}`, "");
-        }
-      });
-    }
+
+    this.manualService.loadManualInstructions(manual, { path: pathToCreate, name, triggers });
   }
 
   execute(args: string[]): void {
