@@ -1,7 +1,8 @@
 import Config from "../../config/config";
 import { Manual, Prototype } from "../../config/config.types";
+import { IPrototypeService } from "./prototype.types";
 
-export class PrototypeService {
+export class PrototypeService implements IPrototypeService {
   constructor() {}
 
   public getPrototype(prototypeRef: string): Prototype {

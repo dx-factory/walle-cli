@@ -1,6 +1,6 @@
 import { ICommand } from "../command.types";
 
-export interface IInitCommand extends ICommand {}
+export type IInitCommand = ICommand;
 
 export interface DepuratedInitArgs {
   entryPoint: string;
