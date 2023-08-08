@@ -32,8 +32,8 @@ export class ManualService {
       triggers.forEach((trigger) => {
         const { extension, preffix: suffix, name: fileName } = this.getInstructionByTrigger(manual, trigger);
         createFile(path, `${fileName || name}${suffix ? `.${suffix}` : ""}.${extension}`, "");
-        this.loadManualMandatoryInstructions(manual, { path, name });
       });
+      this.loadManualMandatoryInstructions(manual, { path, name });
     }
   }
 

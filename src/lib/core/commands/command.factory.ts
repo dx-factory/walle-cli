@@ -1,5 +1,5 @@
 import Factory from "../common/factory";
-import Config from "../config/config";
+
 import { PrototypeService } from "../services/Prototype/prototype.service";
 import { CommandErrorCodes } from "./command.errors";
 import { Commands, ICommand } from "./command.types";

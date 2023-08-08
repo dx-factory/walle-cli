@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import { spinner } from "@clack/prompts";
 import ArgsProcessor from "./lib/core/args/args.processor";
 import CommandFactory from "./lib/core/commands/command.factory";
 import { SeverityLevels, severities } from "./lib/ui/common/severity";
