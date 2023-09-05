@@ -1,13 +1,15 @@
-import Config from "../../config/config";
-import { Manual, Instruction } from "../../config/config.types";
+import { Instruction } from "../../common/types/instruction";
+import { Manual } from "../../common/types/manual";
 import { createFile } from "../../file/writer";
+
+import { ConfigService } from "../config/config.service";
 import { LoadManualInstructionsOptions } from "./manual.types";
 
 export class ManualService {
-  constructor() {}
+  constructor(private readonly configService: ConfigService) {}
 
   public getManual(manualRef: string): Manual {
-    const manual = Config.getManual(manualRef);
+    const manual = this.configService.getManual(manualRef);
     if (!manual) throw new Error(`Invalid manual ${manualRef}`);
     return manual;
   }

@@ -1,4 +1,4 @@
-import { Prototype } from "../../config/config.types";
+import { Prototype } from "../../common/types/prototype";
 
 export interface DepuratedPrototypeSketch {
   prototype: Prototype;

@@ -1,4 +1,4 @@
-import { Manual } from "../../config/config.types";
+import { Manual } from "../../common/types/manual";
 import { ICommand } from "../command.types";
 
 export type IMakeCommand = ICommand;

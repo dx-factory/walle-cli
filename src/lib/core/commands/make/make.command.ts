@@ -1,17 +1,23 @@
-import Config from "../../config/config";
 import { DepuratedMake, IMakeCommand } from "./make.types";
-import { checkPathExists } from "../../common/file/reader";
-import { Manual } from "../../config/config.types";
+import { checkPathExists } from "../../common/utils/file/reader";
+
 import ArgsProcessor from "../../args/args.processor";
-import { createDirectory } from "../../common/file/writer";
-import { IManualService } from "../../services/Manual/manual.types";
-import { PrototypeService } from "../../services/Prototype/prototype.service";
+import { createDirectory } from "../../common/utils/file/writer";
+import { IManualService } from "../../services/manual/manual.types";
+import { PrototypeService } from "../../services/prototype/prototype.service";
 import { Spinner } from "../../../ui/components/Spinner/Spinner";
 import { SeverityLevels } from "../../../ui/common/severity";
 import { Logger } from "../../../ui/components/Logger/Logger";
+import { ConfigService } from "../../services/config/config.service";
+import { Manual } from "../../common/types/manual";
+import { ManualService } from "../../services/manual";
 
 export class MakeCommand implements IMakeCommand {
-  constructor(private readonly manualService: IManualService, private readonly prototypeService: PrototypeService) {}
+  constructor(
+    private readonly manualService: ManualService,
+    private readonly prototypeService: PrototypeService,
+    private readonly configService: ConfigService,
+  ) {}
 
   private depurate(argsProp: string[]): DepuratedMake {
     const triggers = ArgsProcessor.getTriggersFromArgs(argsProp);
@@ -19,7 +25,7 @@ export class MakeCommand implements IMakeCommand {
 
     const [prototypeRef, name] = semantic.slice(-2);
     const existingPath = semantic.slice(0, -1).join("/");
-    const customEntryPoint = `${Config.getEntryPoint()}/${existingPath}`;
+    const customEntryPoint = `${this.configService.getEntryPoint()}/${existingPath}`;
     if (!checkPathExists(customEntryPoint)) throw new Error(`Invalid path ${existingPath}`);
 
     const prototype = this.prototypeService.getPrototype(prototypeRef);
@@ -28,7 +34,7 @@ export class MakeCommand implements IMakeCommand {
     const validTriggers = this.manualService.containsTriggers(manual, triggers);
     if (!validTriggers) throw new Error(`Invalid triggers for manual ${prototype.manual}`);
 
-    return { name, manual, triggers, entryPoint: customEntryPoint || Config.getEntryPoint() };
+    return { name, manual, triggers, entryPoint: customEntryPoint || this.configService.getEntryPoint() };
   }
 
   makePrototype(name: string, manual: Manual, triggers: string[], path: string): void {

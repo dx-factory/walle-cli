@@ -1,5 +1,5 @@
 import { Selector } from "../../../../../ui/components/Selector/Selector";
-import { SequentialChainHandler } from "../../../../common/SequentialChain/SequentialChainHandler";
+import { SequentialChainHandler } from "../../../../common/utils/chains/SequentialChain/SequentialChainHandler";
 import { GITIGNORE_QUESTION } from "../../init.constants";
 import { InitUserPreferences } from "../../init.types";
 

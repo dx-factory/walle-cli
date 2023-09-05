@@ -1,6 +1,6 @@
 interface SequentialHandler<T = any> {
   setNext(handler: SequentialHandler): SequentialHandler;
-  handle(request: Partial<T>): Promise<Partial<T>>;
+  handle(request: Partial<T>): Promise<T>;
 }
 
 export abstract class SequentialChainHandler<T> implements SequentialHandler<T> {
@@ -11,7 +11,7 @@ export abstract class SequentialChainHandler<T> implements SequentialHandler<T> 
     return handler;
   }
 
-  public async handle(request: Partial<T>): Promise<Partial<T>> {
+  public async handle(request: T): Promise<T> {
     if (this.nextHandler) {
       return await this.nextHandler.handle(request);
     }

@@ -1,12 +1,13 @@
-import Config from "../../config/config";
-import { Manual, Prototype } from "../../config/config.types";
+import { Manual } from "../../common/types/manual";
+import { Prototype } from "../../common/types/prototype";
+import { ConfigService } from "../config/config.service";
 import { IPrototypeService } from "./prototype.types";
 
 export class PrototypeService implements IPrototypeService {
-  constructor() {}
+  constructor(private readonly configService: ConfigService) {}
 
   public getPrototype(prototypeRef: string): Prototype {
-    const prototype = Config.getPrototype(prototypeRef);
+    const prototype = this.configService.getPrototype(prototypeRef);
     if (!prototype) throw new Error(`Invalid prototype ${prototypeRef}`);
     return prototype;
   }
@@ -14,7 +15,7 @@ export class PrototypeService implements IPrototypeService {
   public getPrototypeManual(prototypeRef: string): Manual {
     const prototype = this.getPrototype(prototypeRef);
     if (!prototype.manual) throw new Error(`Prototype missing manual`);
-    const manual = Config.getManual(prototype.manual);
+    const manual = this.configService.getManual(prototype.manual);
     if (!manual) throw new Error(`Invalid manual ${prototype.manual}`);
     return manual;
   }

@@ -1,14 +1,4 @@
-export interface IConfig {
-  get(key: string): any;
-}
-
-export interface Instruction {
-  extension: string;
-  trigger?: string;
-  preffix?: string;
-  name?: string;
-  template?: string;
-}
+import { Instruction } from "./instruction";
 
 export interface Manual {
   /**
@@ -23,10 +13,4 @@ export interface Manual {
    * Set of instructions to create the files in the manual.
    */
   instructions: Instruction[] | string;
-}
-
-export interface Prototype {
-  ref: string;
-  parts: string[];
-  manual?: string;
 }

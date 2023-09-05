@@ -1,4 +1,4 @@
-import { Manual } from "../../config/config.types";
+import { Manual } from "../../common/types/manual";
 
 export interface LoadManualInstructionsOptions {
   path: string;
