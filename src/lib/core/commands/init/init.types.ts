@@ -2,11 +2,7 @@ import { ICommand } from "../command.types";
 
 export type IInitCommand = ICommand;
 
-export interface DepuratedInitArgs {
-  entryPoint: string;
-}
-
-export interface InitUserResponse {
+export interface InitUserPreferences {
   entryPoint: string;
   git: boolean;
 }

@@ -1,4 +1,9 @@
-export abstract class SequentialFlowHandler<T> implements SequentialHandler<T> {
+interface SequentialHandler<T = any> {
+  setNext(handler: SequentialHandler): SequentialHandler;
+  handle(request: Partial<T>): Promise<Partial<T>>;
+}
+
+export abstract class SequentialChainHandler<T> implements SequentialHandler<T> {
   private nextHandler: SequentialHandler;
 
   public setNext(handler: SequentialHandler): SequentialHandler {
