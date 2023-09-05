@@ -5,3 +5,8 @@ export type IInitCommand = ICommand;
 export interface DepuratedInitArgs {
   entryPoint: string;
 }
+
+export interface InitUserResponse {
+  entryPoint: string;
+  git: boolean;
+}
