@@ -10,9 +10,9 @@ export abstract class CancelableLoopChain<T = void> {
       if (this.handlers[+index + 1]) this.handlers[index].setNext(this.handlers[+index + 1]);
     }
 
-    let result: T;
+    let result: T = props;
     while (!this.canceled) {
-      result = await this.handlers[0].handle(props, () => (this.canceled = true));
+      result = await this.handlers[0].handle(result, () => (this.canceled = true));
     }
     return result;
   }

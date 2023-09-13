@@ -44,4 +44,17 @@ export class ManualService {
     const manualTriggers = instructions.map((instruction) => instruction.trigger);
     return triggers.every((trigger) => manualTriggers.includes(trigger));
   }
+
+  public manualExists(manualRef: Manual["ref"]): boolean {
+    try {
+      this.getManual(manualRef);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  public buildManual(manual: Manual): void {
+    this.configService.setManual(manual);
+  }
 }

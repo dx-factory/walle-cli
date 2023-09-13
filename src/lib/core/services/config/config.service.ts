@@ -42,6 +42,11 @@ export class ConfigService {
     return manual;
   }
 
+  setManual(manual: Manual): void {
+    const manuals = this.get("manuals") as Manual[];
+    this.set("manuals", [...manuals, manual]);
+  }
+
   getEntryPoint(): string {
     return this.get("entryPoint");
   }

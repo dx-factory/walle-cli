@@ -1,6 +1,7 @@
 import { Selector } from "../../../../../ui/components/Selector/Selector";
 import { TextField } from "../../../../../ui/components/TextField/TextField";
 import { SequentialChainHandler } from "../../../../common/utils/chains/SequentialChain/SequentialChainHandler";
+import ServiceFactory from "../../../../services/service.factory";
 import { SelectedManualDesign } from "../../design.types";
 
 export class DesignManualHandler extends SequentialChainHandler<SelectedManualDesign> {
@@ -10,6 +11,7 @@ export class DesignManualHandler extends SequentialChainHandler<SelectedManualDe
       placeholder: "module, ui, component...",
       validate: (value) => {
         if (!value.length) return "Manual reference name cannot be empty.";
+        if (ServiceFactory.getManualService.manualExists(value)) return "Manual already exists. Choose another reference name!";
       },
     });
     const withFolder = await Selector.select({
