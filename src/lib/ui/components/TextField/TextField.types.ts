@@ -5,4 +5,5 @@ export interface AskOptions {
   placeholder?: string;
   defaultValue?: string;
   validate?: (value: string) => string | void;
+  optional?: boolean;
 }

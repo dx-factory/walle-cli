@@ -1,8 +1,7 @@
 import { checkPathExists } from "../../file/reader";
-import { IInitCommand, InitUserPreferences } from "./init.types";
+import { IInitCommand } from "./init.types";
 import InitChainFactory from "./flows/InitChain.factory";
 import { WALLE_CONFIG_FILENAME } from "../../services/config/config.constants";
-import { Init } from "v8";
 
 export class InitCommand implements IInitCommand {
   constructor() {}

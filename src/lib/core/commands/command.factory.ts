@@ -5,6 +5,7 @@ import { InitCommand, IInitCommand } from "./init";
 import { IMakeCommand, MakeCommand } from "./make";
 import { ISketchCommand, SketchCommand } from "./sketch";
 import ServiceFactory from "../services/service.factory";
+import { DesignCommand } from "./design/design.command";
 
 /**
  * CommandFactory
@@ -15,11 +16,13 @@ export default class CommandFactory extends Factory {
   private static SketchCommand: ISketchCommand;
   private static MakeCommand: IMakeCommand;
   private static InitCommand: IInitCommand;
+  private static DesignCommand: ICommand;
 
   static getCommand(commandName: string): ICommand {
-    if (commandName === "make") return this.sketchCommand;
-    if (commandName === "sketch") return this.makeCommand;
+    if (commandName === "sketch") return this.sketchCommand;
+    if (commandName === "make") return this.makeCommand;
     if (commandName === "init") return this.initCommand;
+    if (commandName === "design") return this.designCommand;
     else throw new Error(CommandErrorCodes.COMMAND_NOT_FOUND);
   }
 
@@ -36,5 +39,9 @@ export default class CommandFactory extends Factory {
 
   static get initCommand(): IInitCommand {
     return this.resolve(this.InitCommand, () => new InitCommand());
+  }
+
+  static get designCommand(): ICommand {
+    return this.resolve(this.DesignCommand, () => new DesignCommand());
   }
 }

@@ -1,6 +1,6 @@
 import { SequentialChainHandler } from "./SequentialChainHandler";
 
-export abstract class SequentialChain<T> {
+export abstract class SequentialChain<T = void> {
   protected handlers: SequentialChainHandler<T>[];
 
   async execute(props?: T): Promise<T> {

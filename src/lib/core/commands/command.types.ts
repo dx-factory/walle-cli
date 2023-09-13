@@ -2,6 +2,7 @@ export const Commands = {
   make: "make",
   sketch: "sketch",
   init: "init",
+  design: "design",
 } as const;
 
 export type Command = (typeof Commands)[keyof typeof Commands];
