@@ -1,6 +1,6 @@
 import { severities } from "../../common/severity";
 import { AskOptions } from "./TextField.types";
-import { text } from "@clack/prompts";
+import { cancel, isCancel, text } from "@clack/prompts";
 
 export class TextField {
   static async ask(options: AskOptions): Promise<string> {
@@ -19,6 +19,11 @@ export class TextField {
       initialValue: defaultValue,
       validate: optional ? undefined : handleValidate,
     });
+
+    if (isCancel(response)) {
+      cancel("Operation cancelled.");
+      process.exit(0);
+    }
 
     return response as string;
   }

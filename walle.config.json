@@ -3,21 +3,11 @@
   "prototypes": [
     {
       "ref": "module",
-      "parts": [
-        "components",
-        "containers",
-        "hooks",
-        "query"
-      ]
+      "parts": ["components", "containers", "hooks", "query"]
     },
     {
       "ref": "components",
-      "parts": [
-        "display",
-        "feedback",
-        "input",
-        "layout"
-      ]
+      "parts": ["display", "feedback", "input", "layout"]
     },
     {
       "ref": "containers",
@@ -80,27 +70,6 @@
           "name": "index"
         }
       ]
-    },
-    {
-      "ref": "guard",
-      "instructions": [],
-      "folder": true
-    },
-    {
-      "ref": "exception",
-      "instructions": [],
-      "folder": false
-    },
-    {
-      "ref": "test",
-      "instructions": [
-        {
-          "extension": "ts",
-          "preffix": "spec",
-          "trigger": "t"
-        }
-      ],
-      "folder": true
     }
   ]
 }

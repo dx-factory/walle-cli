@@ -1,4 +1,4 @@
-import { select } from "@clack/prompts";
+import { select, cancel, isCancel } from "@clack/prompts";
 import { SelectorOption, SelectValue, SelectProps } from "./Selector.types";
 
 export class Selector {
@@ -7,6 +7,11 @@ export class Selector {
       message,
       options: options,
     });
+    if (isCancel(selectedOption)) {
+      cancel("Operation cancelled.");
+      process.exit(0);
+    }
+
     return selectedOption;
   }
 }

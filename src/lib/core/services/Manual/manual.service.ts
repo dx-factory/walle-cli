@@ -57,4 +57,8 @@ export class ManualService {
   public buildManual(manual: Manual): void {
     this.configService.setManual(manual);
   }
+
+  public getManuals(): Manual[] {
+    return this.configService.get("manuals") as Manual[];
+  }
 }

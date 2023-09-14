@@ -1,9 +1,11 @@
 import { SequentialChain } from "../../../../common/utils/chains/SequentialChain/SequentialChain";
-import { SelectedDesign } from "../../design.types";
+import { SelectedPrototypeDesign } from "../../design.types";
+import { DesignPrototypeHandler } from "../handlers/DesignPrototypeHandler";
 
-export class DesignPrototypeChain extends SequentialChain<SelectedDesign> {
+export class DesignPrototypeChain extends SequentialChain<SelectedPrototypeDesign> {
   constructor() {
     super();
-    this.handlers = [];
+    // TODO: Add BuildPrototypeHandler
+    this.handlers = [new DesignPrototypeHandler()];
   }
 }

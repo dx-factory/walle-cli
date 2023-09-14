@@ -19,4 +19,17 @@ export class PrototypeService implements IPrototypeService {
     if (!manual) throw new Error(`Invalid manual ${prototype.manual}`);
     return manual;
   }
+
+  public getPrototypes(): Prototype[] {
+    return this.configService.get("prototypes") as Prototype[];
+  }
+
+  public prototypeExists(prototypeRef: string): boolean {
+    try {
+      this.getPrototype(prototypeRef);
+      return true;
+    } catch {
+      return false;
+    }
+  }
 }

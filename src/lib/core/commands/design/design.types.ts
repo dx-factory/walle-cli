@@ -8,7 +8,7 @@ export interface SelectedManualDesign {
 
 export interface SelectedPrototypeDesign {
   ref?: string;
-  parts?: string;
+  parts?: string[];
   manualRef?: string;
 }
 

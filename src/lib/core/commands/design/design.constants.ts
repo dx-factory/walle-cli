@@ -1,3 +1,4 @@
+import { MultiSelectProps } from "../../../ui/components/MultiSelect/MultiSelect.types";
 import { SelectProps } from "../../../ui/components/Selector/Selector.types";
 import { AskOptions } from "../../../ui/components/TextField/TextField.types";
 import ServiceFactory from "../../services/service.factory";
@@ -58,4 +59,22 @@ export const SET_MANUAL_FOLDER_QUESTION: SelectProps = {
       value: false,
     },
   ],
+};
+
+/**
+ * Design Prototype questions
+ */
+
+export const SET_PROTOTYPE_REFERENCE_QUESTION: AskOptions = {
+  message: "Enter the prototype reference name:",
+  placeholder: "module, ui, component...",
+  validate: (value) => {
+    if (!value.length) return "Prototype reference name cannot be empty.";
+    if (ServiceFactory.getPrototypeService.prototypeExists(value)) return "Prototype already exists. Choose another reference name!";
+  },
+};
+
+export const SET_PROTOTYPE_PART_QUESTION: Omit<MultiSelectProps, "options"> = {
+  message: "Select which parts you want to add to this prototype:",
+  required: false,
 };
