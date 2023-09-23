@@ -2,74 +2,55 @@
   "entryPoint": "./outputs",
   "prototypes": [
     {
-      "ref": "module",
-      "parts": ["components", "containers", "hooks", "query"]
+      "ref": "api",
+      "manual": "api-service"
     },
     {
       "ref": "components",
-      "parts": ["display", "feedback", "input", "layout"]
+      "manual": "react-component"
     },
     {
-      "ref": "containers",
-      "manual": "rwc"
+      "ref": "ui",
+      "parts": ["components", "hooks"]
     },
     {
       "ref": "hooks",
-      "manual": "ts"
-    },
-    {
-      "ref": "query",
-      "manual": "ts"
-    },
-    {
-      "ref": "display",
-      "manual": "rwc"
-    },
-    {
-      "ref": "feedback",
-      "manual": "rwc"
-    },
-    {
-      "ref": "input",
-      "manual": "rwc"
-    },
-    {
-      "ref": "layout",
-      "manual": "rwc"
+      "manual": "react-hook"
     }
   ],
   "manuals": [
     {
-      "ref": "rwc",
-      "folder": true,
+      "ref": "api-service",
       "instructions": [
         {
-          "trigger": "s",
-          "preffix": "styles",
-          "extension": "ts"
-        },
-        {
-          "trigger": "t",
-          "preffix": "types",
-          "extension": "ts"
-        },
-        {
-          "extension": "tsx",
-          "template": "react-component"
+          "extension": "ts",
+          "preffix": "api"
         }
-      ]
+      ],
+      "folder": false
     },
     {
-      "ref": "ts",
+      "ref": "react-component",
       "instructions": [
         {
-          "extension": "ts"
+          "extension": "tsx"
         },
         {
           "extension": "ts",
-          "name": "index"
+          "preffix": "styles",
+          "trigger": "s"
         }
-      ]
+      ],
+      "folder": true
+    },
+    {
+      "ref": "react-hook",
+      "instructions": [
+        {
+          "extension": "ts"
+        }
+      ],
+      "folder": false
     }
   ]
 }

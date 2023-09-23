@@ -47,6 +47,11 @@ export class ConfigService {
     this.set("manuals", [...manuals, manual]);
   }
 
+  setPrototype(prototype: Prototype): void {
+    const prototypes = this.get("prototypes") as Prototype[];
+    this.set("prototypes", [...prototypes, prototype]);
+  }
+
   getEntryPoint(): string {
     return this.get("entryPoint");
   }

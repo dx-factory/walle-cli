@@ -32,4 +32,8 @@ export class PrototypeService implements IPrototypeService {
       return false;
     }
   }
+
+  public buildPrototype(prototype: Prototype): void {
+    return this.configService.setPrototype(prototype);
+  }
 }

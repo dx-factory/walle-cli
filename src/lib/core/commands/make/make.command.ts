@@ -3,7 +3,6 @@ import { checkPathExists } from "../../common/utils/file/reader";
 
 import ArgsProcessor from "../../args/args.processor";
 import { createDirectory } from "../../common/utils/file/writer";
-import { IManualService } from "../../services/manual/manual.types";
 import { PrototypeService } from "../../services/prototype/prototype.service";
 import { Spinner } from "../../../ui/components/Spinner/Spinner";
 import { SeverityLevels } from "../../../ui/common/severity";
@@ -24,6 +23,7 @@ export class MakeCommand implements IMakeCommand {
     const semantic = ArgsProcessor.filterSemanticFromArgs(argsProp);
 
     const [prototypeRef, name] = semantic.slice(-2);
+
     const existingPath = semantic.slice(0, -1).join("/");
     const customEntryPoint = `${this.configService.getEntryPoint()}/${existingPath}`;
     if (!checkPathExists(customEntryPoint)) throw new Error(`Invalid path ${existingPath}`);
@@ -47,6 +47,7 @@ export class MakeCommand implements IMakeCommand {
 
   async execute(args: string[]): Promise<void> {
     const { name, triggers, manual, entryPoint } = this.depurate(args);
+
     await Spinner.wait({
       startMessage: `Making ${manual.ref} ${name}`,
       stopMessage: `Prototype ${name} created!`,

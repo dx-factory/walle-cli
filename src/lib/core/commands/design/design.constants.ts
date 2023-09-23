@@ -78,3 +78,15 @@ export const SET_PROTOTYPE_PART_QUESTION: Omit<MultiSelectProps, "options"> = {
   message: "Select which parts you want to add to this prototype:",
   required: false,
 };
+
+export const SET_PROTOTYPE_ADD_MANUAL_QUESTION: SelectProps = {
+  message: "Do you want to add a manual?",
+  options: [
+    { label: "Yes", value: true },
+    { label: "No", value: false },
+  ],
+};
+
+export const SET_PROTOTYPE_MANUAL: Pick<SelectProps, "message"> = {
+  message: "Enter the manual reference name:",
+};

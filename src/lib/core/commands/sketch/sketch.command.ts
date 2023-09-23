@@ -12,14 +12,15 @@ export class SketchCommand implements ISketchCommand {
   constructor(private readonly configService: ConfigService) {}
 
   private depurate(args: string[]): DepuratedPrototypeSketch {
-    if (args.length < 2) throw new Error("Invalid number of arguments");
+    if (args.length < 1) throw new Error("Invalid number of arguments");
     const [prototypeRef, name] = args.slice(-2);
     const existingPath = args.slice(0, -2).join("/");
     const customEntryPoint = `${this.configService.getEntryPoint()}/${existingPath}`;
     if (!checkPathExists(customEntryPoint)) throw new Error(`Invalid path ${existingPath}`);
     const prototype = this.configService.getPrototype(prototypeRef);
     if (!prototype) throw new Error(`Invalid prototype ${prototypeRef}`);
-    return { prototype, name, entryPoint: customEntryPoint || this.configService.getEntryPoint() };
+    if ((!prototype?.parts || prototype?.parts?.length === 0) && name) throw new Error(`Cannot name a prototype without parts`);
+    return { prototype, name: name || prototypeRef, entryPoint: customEntryPoint || this.configService.getEntryPoint() };
   }
 
   private sketchPrototype(prototype: Prototype, name: string, currentPath: string, initPath = this.configService.getEntryPoint()): void {

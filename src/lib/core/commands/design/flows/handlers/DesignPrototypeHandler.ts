@@ -1,7 +1,12 @@
 import { MultiSelect } from "../../../../../ui/components/MultiSelect/MultiSelect";
 import { SequentialChainHandler } from "../../../../common/utils/chains/SequentialChain/SequentialChainHandler";
 import { SelectedPrototypeDesign } from "../../design.types";
-import { SET_PROTOTYPE_PART_QUESTION, SET_PROTOTYPE_REFERENCE_QUESTION } from "../../design.constants";
+import {
+  SET_PROTOTYPE_ADD_MANUAL_QUESTION,
+  SET_PROTOTYPE_MANUAL,
+  SET_PROTOTYPE_PART_QUESTION,
+  SET_PROTOTYPE_REFERENCE_QUESTION,
+} from "../../design.constants";
 import ServiceFactory from "../../../../services/service.factory";
 import { TextField } from "../../../../../ui/components/TextField/TextField";
 import { SelectorOption } from "../../../../../ui/components/Selector/Selector.types";
@@ -30,20 +35,11 @@ export class DesignPrototypeHandler extends SequentialChainHandler<SelectedProto
       return acc;
     }, [] as SelectorOption[]);
 
-    const addManual = await Selector.select({
-      message: "Do you want to add a manual?",
-      options: [
-        { label: "Yes", value: true },
-        { label: "No", value: false },
-      ],
-    });
+    const addManual = await Selector.select(SET_PROTOTYPE_ADD_MANUAL_QUESTION);
 
     if (!addManual) return await super.handle({ ...request, ref: prototypeRef, parts: selectedParts.length ? selectedParts : undefined });
 
-    const manualRef = (await Selector.select({
-      message: "Enter the manual reference name:",
-      options: availableManualOptions,
-    })) as string;
+    const manualRef = (await Selector.select({ ...SET_PROTOTYPE_MANUAL, options: availableManualOptions })) as string;
 
     return await super.handle({ ...request, ref: prototypeRef, parts: selectedParts.length ? selectedParts : undefined, manualRef });
   }
