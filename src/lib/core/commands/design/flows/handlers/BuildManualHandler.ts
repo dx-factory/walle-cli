@@ -11,7 +11,7 @@ export class BuildManualHandler extends SequentialChainHandler<SelectedManualDes
         instructions: request.defaultInstructions,
         folder: request.folder,
       });
-    Spinner.wait({ startMessage: "Building manual...", stopMessage: "Manual built!", callback: buildManual });
+    await Spinner.wait({ startMessage: "Building manual...", stopMessage: "Manual built!", callback: buildManual });
     return await super.handle(request);
   }
 }
