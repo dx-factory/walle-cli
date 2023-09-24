@@ -1,0 +1,85 @@
+{
+  "entryPoint": "./outputs",
+  "prototypes": [
+    {
+      "ref": "module",
+      "parts": [
+        "components",
+        "containers",
+        "hooks",
+        "query"
+      ]
+    },
+    {
+      "ref": "components",
+      "parts": [
+        "display",
+        "feedback",
+        "input",
+        "layout"
+      ]
+    },
+    {
+      "ref": "containers",
+      "manual": "rwc"
+    },
+    {
+      "ref": "hooks",
+      "manual": "ts"
+    },
+    {
+      "ref": "query",
+      "manual": "ts"
+    },
+    {
+      "ref": "display",
+      "manual": "rwc"
+    },
+    {
+      "ref": "feedback",
+      "manual": "rwc"
+    },
+    {
+      "ref": "input",
+      "manual": "rwc"
+    },
+    {
+      "ref": "layout",
+      "manual": "rwc"
+    }
+  ],
+  "manuals": [
+    {
+      "ref": "rwc",
+      "folder": true,
+      "instructions": [
+        {
+          "trigger": "s",
+          "preffix": "styles",
+          "extension": "ts"
+        },
+        {
+          "trigger": "t",
+          "preffix": "types",
+          "extension": "ts"
+        },
+        {
+          "extension": "tsx",
+          "template": "react-component"
+        }
+      ]
+    },
+    {
+      "ref": "ts",
+      "instructions": [
+        {
+          "extension": "ts"
+        },
+        {
+          "extension": "ts",
+          "name": "index"
+        }
+      ]
+    }
+  ]
+}

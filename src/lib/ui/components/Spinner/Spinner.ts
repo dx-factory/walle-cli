@@ -11,11 +11,12 @@ interface WaitOptions {
 }
 
 export class Spinner {
-  static async wait({ startMessage, stopMessage, callback, delay = 1000 }: WaitOptions): Promise<void> {
+  static async wait<T>({ startMessage, stopMessage, callback, delay = 1000 }: WaitOptions): Promise<T> {
     const customSpinner: SpinnerActions = spinner();
     customSpinner.start(severities[SeverityLevels.DEFAULT](startMessage));
-    callback();
+    const callbackReturn = callback();
     await setTimeout(delay);
     customSpinner.stop(stopMessage && severities[SeverityLevels.SUCCESS](stopMessage));
+    return callbackReturn;
   }
 }

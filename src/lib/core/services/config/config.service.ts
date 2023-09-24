@@ -8,12 +8,12 @@ import { addTextToFile, checkPathExists } from "../../file/reader";
 import { createFile } from "../../file/writer";
 
 export class ConfigService {
-  private getConfig(): WalleConfig {
+  getConfig(): WalleConfig {
     const config = JSON.parse(fs.readFileSync(WALLE_CONFIG_FILE_PATH, "utf8")) as WalleConfig;
     return config;
   }
 
-  private saveConfig(configState: WalleConfig) {
+  saveConfig(configState: WalleConfig) {
     fs.writeFileSync(WALLE_CONFIG_FILE_PATH, JSON.stringify(configState, null, 2));
   }
 
@@ -26,6 +26,12 @@ export class ConfigService {
     const config = this.getConfig();
     config[key] = value;
     this.saveConfig(config);
+  }
+
+  validate(config: object): boolean {
+    const configKeys = Object.keys(config);
+    const validKeys = Object.keys(WALLE_CONFIG_DEFAULT_STATE);
+    return configKeys.every((key: string) => validKeys.includes(key));
   }
 
   getPrototype(prototypeRef: string): Prototype {

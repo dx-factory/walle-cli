@@ -1,11 +1,12 @@
 import Factory from "../common/utils/factory";
 import { CommandErrorCodes } from "./command.errors";
-import { Commands, ICommand } from "./command.types";
+import { ICommand } from "./command.types";
 import { InitCommand, IInitCommand } from "./init";
 import { IMakeCommand, MakeCommand } from "./make";
 import { ISketchCommand, SketchCommand } from "./sketch";
 import ServiceFactory from "../services/service.factory";
 import { DesignCommand } from "./design/design.command";
+import { FetchCommand } from "./fetch/fetch.command";
 
 /**
  * CommandFactory
@@ -17,12 +18,14 @@ export default class CommandFactory extends Factory {
   private static MakeCommand: IMakeCommand;
   private static InitCommand: IInitCommand;
   private static DesignCommand: ICommand;
+  private static FetchCommand: ICommand;
 
   static getCommand(commandName: string): ICommand {
     if (commandName === "sketch") return this.sketchCommand;
     if (commandName === "make") return this.makeCommand;
     if (commandName === "init") return this.initCommand;
     if (commandName === "design") return this.designCommand;
+    if (commandName === "fetch") return this.fetchCommand;
     else throw new Error(CommandErrorCodes.COMMAND_NOT_FOUND);
   }
 
@@ -43,5 +46,9 @@ export default class CommandFactory extends Factory {
 
   static get designCommand(): ICommand {
     return this.resolve(this.DesignCommand, () => new DesignCommand());
+  }
+
+  static get fetchCommand(): ICommand {
+    return this.resolve(this.FetchCommand, () => new FetchCommand(ServiceFactory.getConfigService));
   }
 }

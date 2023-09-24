@@ -3,6 +3,7 @@ export const Commands = {
   sketch: "sketch",
   init: "init",
   design: "design",
+  fetch: "fetch",
 } as const;
 
 export type Command = (typeof Commands)[keyof typeof Commands];
