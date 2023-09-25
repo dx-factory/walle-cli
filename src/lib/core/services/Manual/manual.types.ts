@@ -4,7 +4,7 @@ export interface LoadManualInstructionsOptions {
   path: string;
   name: string;
   triggers?: string[];
-  template?: true;
+  template?: string;
 }
 
 export interface IManualService {

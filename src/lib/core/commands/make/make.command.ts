@@ -48,11 +48,14 @@ export class MakeCommand implements IMakeCommand {
   async execute(args: string[]): Promise<void> {
     const { name, triggers, manual, entryPoint } = this.depurate(args);
 
-    await Spinner.wait({
-      startMessage: `Making ${manual.ref} ${name}`,
-      stopMessage: `Prototype ${name} created!`,
-      callback: () => this.makePrototype(name, manual, triggers, entryPoint),
-    });
+    // await Spinner.wait({
+    //   startMessage: `Making ${manual.ref} ${name}`,
+    //   stopMessage: `Prototype ${name} created!`,
+    //   callback: () => this.makePrototype(name, manual, triggers, entryPoint),
+    // });
+
+    this.makePrototype(name, manual, triggers, entryPoint);
+
     Logger.note({ type: SeverityLevels.DEFAULT, title: "Next steps", message: `Start coding in ${entryPoint}/${name}` });
   }
 }
