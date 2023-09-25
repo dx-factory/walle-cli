@@ -3,21 +3,11 @@
   "prototypes": [
     {
       "ref": "module",
-      "parts": [
-        "components",
-        "containers",
-        "hooks",
-        "query"
-      ]
+      "parts": ["components", "containers", "hooks", "query"]
     },
     {
       "ref": "components",
-      "parts": [
-        "display",
-        "feedback",
-        "input",
-        "layout"
-      ]
+      "parts": ["display", "feedback", "input", "layout"]
     },
     {
       "ref": "containers",
@@ -61,7 +51,8 @@
         {
           "trigger": "t",
           "preffix": "types",
-          "extension": "ts"
+          "extension": "ts",
+          "template": "react-component-type"
         },
         {
           "extension": "tsx",

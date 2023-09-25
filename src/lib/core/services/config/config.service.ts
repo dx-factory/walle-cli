@@ -74,4 +74,10 @@ export class ConfigService {
     if (gitIgnoreExists) addTextToFile(".gitignore", WALLE_CONFIG_FILENAME);
     else throw new Error("Gitignore file not found");
   }
+
+  getTemplate(templateRef: string): string {
+    if (!checkPathExists(`./.walle/templates/${templateRef}.txt`)) throw new Error("Template not found");
+
+    return fs.readFileSync(`./.walle/templates/${templateRef}.txt`, "utf8");
+  }
 }
