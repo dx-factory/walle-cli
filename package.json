@@ -1,12 +1,14 @@
 {
   "name": "walle-cli",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.0",
   "description": "Your CLI project organizer",
   "main": "A powerful CLI to organize your projects for a better developer experience.",
+  "preferGlobal": true,
   "bin": {
     "walle": "./build/index.js"
   },
   "scripts": {
+    "install": "npm link",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",

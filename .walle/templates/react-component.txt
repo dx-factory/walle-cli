@@ -1,7 +1,0 @@
-import { %%content%%Props } from "./%%content%%.types";
-
-export default function %%content%%(props: %%content%%Props): JSX.Element {
-    return (
-        <div></div>
-    )
-}
