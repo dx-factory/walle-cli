@@ -1,8 +1,6 @@
 import * as fs from "fs";
 
 export default function loadTemplate(templatePath: string, newFilePath: string, modifications?: { ref: string | RegExp; value: string }) {
-  console.log({ templatePath, newFilePath, modifications });
-
   fs.copyFile(templatePath, newFilePath, (err) => {
     if (err) {
       return;
