@@ -1,9 +1,8 @@
 {
   "name": "walle-cli",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "Your CLI project organizer",
   "main": "A powerful CLI to organize your projects for a better developer experience.",
-  "preferGlobal": true,
   "bin": {
     "walle": "./build/index.js"
   },
