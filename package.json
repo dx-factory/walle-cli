@@ -2,12 +2,10 @@
   "name": "walle-cli",
   "version": "1.0.0-alpha.4",
   "description": "Your CLI project organizer",
-  "main": "build/index.js",
   "bin": {
     "walle": "build/index.js"
   },
   "scripts": {
-    "install": "npm link",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
@@ -48,7 +46,6 @@
   "dependencies": {
     "@clack/prompts": "^0.6.3",
     "axios": "^1.5.0",
-    "chalk": "4.1.2",
-    "type-flag": "^3.0.0"
+    "chalk": "4.1.2"
   }
 }
