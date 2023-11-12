@@ -1,0 +1,4 @@
+export declare enum ArgsErrorCodes {
+    NO_ARGS_PROVIDED = "NO_ARGS_PROVIDED",
+    NO_SEMANTIC_PROVIDED = "NO_SEMANTIC_PROVIDED"
+}

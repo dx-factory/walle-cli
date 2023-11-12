@@ -130,7 +130,6 @@ dist
 .pnp.*
 
 # project specific
-/build
 /dist
 walle.config.json
 /.walle
