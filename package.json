@@ -1,6 +1,6 @@
 {
   "name": "walle-cli",
-  "version": "1.0.0-alpha.5",
+  "version": "1.0.0-alpha.6",
   "description": "Your CLI project organizer",
   "bin": {
     "walle": "build/index.js"
